@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/02379189ff.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/homepage.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <style>
+      .img-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .main-menu li img {
+        width: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    </style>
+    <title>Paraxeum</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-container">
+        <a href="/homepage">
+          <div class="logo">
+            <img src="./images/logo.png" alt="" />
+            <h2 class="logo-text">Paraxeum</h2>
+          </div>
+        </a>
+        <ul class="main-menu">
+          <li class="img-container">
+            <% if((user.img.data)) { let image =
+            user.img.data.toString('base64')%>
+            <img src="data:image/jpeg;base64,<%= image %>" alt="" />
+            <% } else { %>
+            <img src="images/default.jpg" alt="" />
+            <% } %>
+          </li>
+          <li style="color: white">Welcome <%= user.username %> !</li>
+          <li>
+            <button class="button"><a href="/logout">Log out</a></button>
+          </li>
+        </ul>
+
+        <div class="menu" onclick="myFunction()">
+          <div class="menu-icon"></div>
+          <div class="menu-icon"></div>
+          <div class="menu-icon"></div>
+        </div>
+
+        <div id="myLinks" style="display: none">
+          <div class="box-1">
+            <a href="">
+              <button class="button"><a href="/logout">Log Out</a></button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="success"></div>
+      <div class="error"></div>
+      <div class="form-container">
+        <div class="header">
+          <div class="image">
+            <% if((user.img.data)) { let image =
+            user.img.data.toString('base64')%>
+            <img src="data:image/jpeg;base64,<%= image %>" alt="" />
+            <% } else { %>
+            <img src="images/default.jpg" alt="" />
+            <% } %>
+          </div>
+          <div class="text">
+            <p class="username">Username : <%= user.username %></p>
+            <p class="emailaddress"><%= user.email %></p>
+          </div>
+        </div>
+        <div class="form-data">
+          <h1>Update Profile</h1>
+          <form enctype="multipart/form-data">
+            <div class="user-box">
+              <label>Enter new username</label>
+              <br />
+              <input
+                type="text"
+                name="username"
+                required=""
+                autocomplete="off"
+                placeholder="<%= user.username %>"
+              />
+            </div>
+            <div class="user-box">
+              <label>Enter a new Password</label>
+              <br />
+              <input
+                type="password"
+                name="password"
+                required=""
+                autocomplete="off"
+              />
+            </div>
+            <p style="color: black; font-size: 13px; margin: 5px 0">
+              Update your profile picture
+            </p>
+            <input type="file" id="myFile" name="image" style="color: black" />
+            <br />
+            <input type="submit" value="Update Profile" class="button" />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function myFunction() {
+        var x = document.getElementById("myLinks");
+        const menu = document.querySelector(".menu");
+        if (x.style.display === "flex") {
+          x.style.display = "none";
+        } else {
+          x.style.display = "flex";
+        }
+      }
+      const form = document.querySelector("form");
+      const success = document.querySelector(".success");
+      const errorupdate = document.querySelector(".error");
+      const emailaddress = document.querySelector(".emailaddress");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        //
+        errorupdate.textContent = "";
+        success.textContent = "";
+        // get values
+        const dat = new FormData(form);
+        dat.append("email", emailaddress.textContent);
+        console.log("form", form, "form body", dat);
+        try {
+          const res = await fetch("/dashboard", {
+            method: "POST",
+            body: dat,
+          });
+          const data = await res.json();
+          console.log("returned", data);
+          if (data.errors) {
+            errorupdate.textContent =
+              "Password must be atleast 6 characters long";
+            window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: "smooth",
+            });
+          }
+          if (data.user) {
+            window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: "smooth",
+            });
+            location.assign('/homepage');
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    </script>
+  </body>
+</html>

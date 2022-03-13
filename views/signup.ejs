@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/login.css" />
+    <title>Paraxeum</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-container">
+        <a href="index.html">
+          <div class="logo">
+            <img src="./images/logo.png" alt="" />
+            <h2 class="logo-text">Paraxeum</h2>
+          </div>
+        </a>
+        <ul class="main-menu">
+          <li>
+            <button class="button"><a href="/login">Log In</a></button>
+          </li>
+          <li>
+            <button class="button"><a href="/signup"> Sign up</a></button>
+          </li>
+        </ul>
+
+        <div class="menu" onclick="myFunction()">
+          <div class="menu-icon"></div>
+          <div class="menu-icon"></div>
+          <div class="menu-icon"></div>
+        </div>
+
+        <div id="myLinks" style="display: none">
+          <div class="box-1">
+            <a href="">
+              <button class="button"><a href="/login">Log In</a></button>
+            </a>
+          </div>
+
+          <div class="box-2">
+            <a href="">
+              <button class="button"><a href="/signup"> Sign up</a></button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div class="login-box">
+        <h2>Sign Up</h2>
+        <div class="email error"></div>
+        <div class="password error"></div>
+        <form enctype="multipart/form-data">
+          <div class="user-box">
+            <input type="text" name="email" required="" autocomplete="off" />
+            <label>Enter email address</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="username" required="" autocomplete="off" />
+            <label>Enter new username</label>
+          </div>
+          <div class="user-box">
+            <input
+              type="password"
+              name="password"
+              required=""
+              autocomplete="off"
+            />
+            <label>Enter a new Password</label>
+          </div>
+          <p style="color: white; font-size: 13px; margin: 20px 0">
+            Upload your profile picture
+          </p>
+          <input type="file" id="myFile" name="image" style="color: white" />
+          <p></p>
+          <input type="submit" value="Sign Up" class="button" style="margin-top: 30px;" />
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function myFunction() {
+        var x = document.getElementById("myLinks");
+        const menu = document.querySelector(".menu");
+        if (x.style.display === "flex") {
+          x.style.display = "none";
+        } else {
+          x.style.display = "flex";
+        }
+      }
+
+      const form = document.querySelector("form");
+      const emailErrors = document.querySelector(".email.error");
+      const passwordErrors = document.querySelector(".password.error");
+      const file = document.querySelector("input[type=file]").files[0];
+      const reader = new FileReader();
+      var b64string;
+      var buf; // Ta-da
+      reader.addEventListener(
+        "load",
+        function () {
+          // convert image file to base64 string
+          b64string = reader.result;
+          buf = Buffer.from(b64string, "base64");
+        },
+        false
+      );
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        //reset errors
+        emailErrors.textContent = "";
+        passwordErrors.textContent = "";
+        // get values
+        const email = form.email.value;
+        const password = form.password.value;
+        const username = form.username.value;
+        console.log("form body", new FormData(form));
+        try {
+          const options = {
+            method: "POST",
+            body: new FormData(form),
+          };
+          const res = await fetch("/signup", options);
+          const data = await res.json();
+          console.log(data);
+          if (data.errors) {
+            emailErrors.textContent = data.errors.email;
+            passwordErrors.textContent = data.errors.password;
+          }
+          if (data.user) {
+            location.assign("/homepage");
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    </script>
+  </body>
+</html>
