@@ -1,0 +1,110 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+.form-container{
+    width: 70%;
+    background-color: #E5E5E5;
+    margin: 20px auto;
+    border-radius: 10px;
+    border-style: none;
+}
+.header{
+    flex: 3;
+    display: flex;
+    padding: 30px;
+}
+.image{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text{
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+}
+.text > p{
+    flex: 1;
+}
+.image img{
+    width: 100px;
+    border-radius: 50%;
+}
+.form-data{
+    flex: 1;
+    padding: 15px;
+}
+.text p{
+    padding: 0px;
+    padding-top: 15px;
+}
+
+.form-data form{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-data form>*{
+    margin: 10px 0;
+}
+
+input[type="text"],input[type="password"]{
+    padding: 10px;
+    width: 80%;
+    outline: none;
+}
+
+.user-box > *{
+    margin: 5px 0;
+}
+
+input[type="submit"]{
+    border: 1px solid rgba(0,0,0,0.3);
+}
+
+@media(max-width:900px){
+    .form-container{
+        width: 80%;
+    }
+    .user-box > *{
+        margin: 8px 0;
+    }
+}
+@media(max-width:620px){
+    .header{
+        flex-direction: column;
+    }
+    .header > *{
+        text-align: center;
+    }
+    .header .text{
+        margin-top: 10px;
+    }
+}
+.success{
+    color: lightgreen;
+}
+.error{
+    color: lightcoral;
+}
+@media(max-width:480px){
+    .header .text{
+        font-size: 0.8rem;
+    }
+    .form-data h1{
+        font-size: 1.2rem;
+    }
+    .user-box{
+        font-size: 0.8rem;
+    }
+    input[type="text"],input[type="password"]{
+        padding-left: 1px;
+        width: 100%;
+        font-size: 0.8rem;
+    }
+}

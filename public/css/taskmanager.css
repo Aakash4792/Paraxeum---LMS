@@ -1,0 +1,59 @@
+.main-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: auto;
+    padding: 50px;
+}
+.add-task-box{
+    margin-bottom: 20px;
+}
+
+.add-task-box button{
+    padding: 13px 22px;
+    font-size: 1.2rem;
+    border-radius: 3px;
+    border-style: none;
+    cursor: pointer;
+    color: #000;
+}
+
+.tasks-box{
+    height: auto;
+    padding: 30px;
+    width: 70%;
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 3px;
+}
+.tasks-box > a{
+    border: 1px solid rgba(0,0,0,0.3);
+    margin: 10px auto;
+}
+.tasks-box h1{
+    font-size: 1.6rem;
+}
+
+.single-task{
+    padding-left: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: auto;
+    padding-right: 5px;
+    border-radius: 4px;
+    border-style: none;
+}
+
+.tasks-box a{
+    border-radius: 4px;
+    border-style: none;
+}
+
+@media(max-width:400px){
+    .main-container{
+        padding: 20px;
+    }
+    .tasks-box{
+        width: 97%;
+        padding: 10px;
+    }
+}

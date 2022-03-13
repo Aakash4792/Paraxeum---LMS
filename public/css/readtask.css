@@ -1,0 +1,52 @@
+.task-header-delete,.task-data{
+    width: 70%;
+}
+.task-header-delete{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.delete-icon i{
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+.task-data{
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    border-style: none;
+    border: 2px solid rgba(0,0,0,0.3);
+}
+.task-data > *,.description > * {
+    margin: 10px auto;
+}
+
+.state-change-button-container{
+    padding: 30px;
+}
+
+.state-change-button-container button{
+    padding: 10px 16px;
+    border-radius: 3px;
+    border-style: none;
+    border: 1px solid rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+
+.change-to-incomplete{
+    background-color: crimson;
+    color: azure;
+}
+.change-to-complete{
+    background-color: #48BF84;
+    color: white;
+}
+
+@media(max-width:330px){
+    .main-container{
+        padding: 10px;
+    }
+    .task-header-delete,.task-data{
+        width: 95%;
+    }
+}

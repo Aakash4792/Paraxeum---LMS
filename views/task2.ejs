@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300"
+      rel="stylesheet"
+    />
+    
+    <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="/css/homepage.css" />
+    <link rel="stylesheet" href="/css/courses.css" />
+    <style>
+      .img-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .main-menu li img {
+        width: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    </style>
+    <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
+    <title>Paraxeum</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-container">
+        <a href="/homepage">
+          <div class="logo">
+            <img src="/images/logo.png" alt="" />
+            <h2 class="logo-text">Paraxeum</h2>
+          </div>
+        </a>
+        <ul class="main-menu">
+          <li class="img-container">
+            <% if((user.img.data)) { let image =
+            user.img.data.toString('base64')%>
+            <img src="data:image/jpeg;base64,<%= image %>" alt="" />
+            <% } else { %>
+            <img src="/images/default.jpg" alt="" />
+            <% } %>
+          </li>
+          <li style="color: white">Welcome <%= user.username %> !</li>
+          <li>
+            <button class="button"><a href="/logout">Log out</a></button>
+          </li>
+        </ul>
+
+        <div class="menu" onclick="myFunction()">
+          <div class="menu-icon"></div>
+          <div class="menu-icon"></div>
+          <div class="menu-icon"></div>
+        </div>
+
+        <div id="myLinks" style="display: none">
+          <div class="box-1">
+            <a href="">
+              <button class="button"><a href="/logout">Log Out</a></button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="course-menu">
+            <div class="sidebar-header">
+                <h1>Course 0</h1>
+                <div class="icon">
+                    <i class="lni lni-arrows-horizontal"></i>
+                </div>
+            </div>
+            <ul>
+              <% if(user.tasks.length==0) { %>
+                <li><i class="lni lni-circle-minus"></i><a href="/lessons/0">Task 0</a></li>
+                <li><i class="lni lni-circle-minus"></i></i><a href="/lessons/1">Task 1</a></li>
+                <li><i class="lni lni-circle-minus"></i><a href="/lessons/2">Task 2</a></li>
+                <li><i class="lni lni-circle-minus"></i></i><a href="/lessons/3">Task 3</a></li>
+              <% } else { %>
+                <% for(let i = 0; i < user.tasks.length; i++) { %>
+                  <% if(user.tasks[i]==0) { %>
+                    <li><i class="lni lni-circle-minus"></i><a href="/lessons/<%=i%>">Task <%= i %></a></li>
+                  <% } else { %>
+                    <li><i class="lni lni-checkmark-circle"></i><a href="/lessons/<%=i%>">Task <%= i %></a></li>
+                  <% } %>
+                <% } %>
+              <% } %>
+            </ul>
+        </div>
+        <section class="showcase">
+          <div class="header">
+              Task 2
+          </div>
+          <div class="text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos porro officia nihil dolorum laborum et inventore repellendus necessitatibus similique rerum.
+          </div>
+          <div class="video">
+            <iframe src="https://www.youtube.com/embed/dU1xS07N-FA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="button">
+              <input class="complete" type="submit" value="Mark as Complete">
+          </div>
+        </section>
+    </div>
+    
+
+    <script>
+      function myFunction() {
+        var x = document.getElementById("myLinks");
+        const menu = document.querySelector(".menu");
+        if (x.style.display === "flex") {
+          x.style.display = "none";
+        } else {
+          x.style.display = "flex";
+        }
+      }
+      const button = document.querySelector('.icon i');
+      const sidebar = document.querySelector('.course-menu');
+      const mainbar = document.querySelector('.showcase');
+      button.addEventListener('click',e=>{
+          sidebar.classList.toggle('menu-hide')
+        mainbar.classList.toggle('active');
+      });
+      const complete = document.querySelector('.button .complete');
+      complete.addEventListener('click',async(e)=>{
+        console.log('clicked');
+        let email = '<%= user.email %>';
+        
+        let res= await fetch('/lessons/2',{
+          method : "POST",
+          body : JSON.stringify({email}),
+          headers: { "Content-Type": "application/json" },
+        })
+        let result = await res.json();
+        console.log(result);
+        location.assign('/lessons/2');
+      })
+    </script>
+  </body>
+</html>

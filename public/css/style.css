@@ -1,0 +1,244 @@
+/*
+
+ font-family: 'Lora', serif;
+ font-family: 'Montserrat', sans-serif;
+
+
+
+*/
+:root{
+    --orange : #C7493A;
+    --red : #A33327;
+    --green : #689775;
+    --db : #917164;
+    --skin : #AD8174;
+    --space : #161616;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: "Lora", serif;
+  color: var(--space);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+/* ------------nav bar------------ */
+
+nav{
+    background: var(--space);
+    position: sticky;
+    top :0;
+    width: 100%;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+}
+.nav-container{
+    display : flex;
+    width: 90%;
+    flex-wrap: wrap;
+}
+nav img{
+    width: 80px;
+}
+.logo{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo-text{
+    display: inline;
+    color: #FFFFFF;
+}
+
+nav ul{
+    margin-left: auto;
+    list-style-type: none;
+    display: flex;
+}
+
+nav ul li{
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a:visited{
+    color: black;
+}
+.button{
+    padding: 8px 20px;
+    font-size: 1rem;
+    border-radius: 2px;
+    border-style: none;
+}
+
+.menu{
+    flex-direction: column;
+    justify-content: center;
+    margin-left: auto;
+    display: none;
+}
+.menu-icon{
+    width: 35px;
+  height: 5px;
+  background-color: #FFFFFF;
+  margin: 3px 0;
+}
+
+#myLinks{
+    display: none;
+    flex-direction: column;
+    width: 100%;
+}
+
+#myLinks > div{
+    margin: 10px 0;
+    padding-left: 10px;
+}
+.hide{
+    display: none;
+}
+.show-flex{
+    display: flex;
+}
+@media(max-width:700px){
+    .menu{
+        display: flex;
+    }
+    .main-menu{
+        display: none;
+    }
+}
+@media(min-width:700px){
+    #myLinks{
+        display: none;
+    }
+}
+@media(max-width:360px){
+    nav img{
+        width: 50px;
+    }
+    .logo .logo-text{
+        font-size: 16px;
+    }
+    .menu-icon{
+        width: 20px;
+      height: 3px;
+      background-color: #FFFFFF;
+      margin: 3px 0;
+    }
+    #myLinks button{
+        font-size: 16px;
+        padding: 4px 15px;
+    }
+}
+
+/* -------------------end of nav---------------------- */
+
+/* ---------------hero----------------------- */
+.hero{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: url(../images/bg.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: #FFFFFF;
+    align-items: center;
+}
+.hero-container{
+    height: 53%;
+    z-index: 1;
+}
+.hero-container > div {
+    margin: 3rem 0;
+    width: 100%;
+}
+.hero::after{
+    content: "";
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    bottom: 0;
+    box-shadow: inset 70px 30px 100px #000000,inset -70px -30px 100px #000000;
+}
+.text{
+    text-align: center;
+    padding: 10px;
+    font-family: 'Lora', serif;
+    overflow: hidden;
+}
+.text h1{
+    text-align: center;
+    font-size: 5rem;
+    font-weight: bold;
+}
+.text p{
+    font-size: 1rem;
+    padding: 1.1rem;
+}
+.buttons{
+    display: flex;
+    flex-wrap: wrap;
+}
+.buttons > div{
+    flex: 1;
+    text-align: center;
+}
+.buttons button{
+    width: 90%;
+}
+button{
+    cursor: pointer;
+}
+@media(max-width:1091px){
+    .buttons{
+        flex-direction: column;
+    }
+    .buttons button{
+        width: 50%;
+    }
+    .hero::after{
+        box-shadow:  inset 30px 20px 50px #000000,inset -30px -20px 50px #000000;;
+    }
+}
+
+@media(max-width:550px){
+    .text h1{
+        font-size: 3rem;
+    }
+    .text p{
+        font-size: 0.9rem;
+        padding: 2rem;
+    }
+}
+
+@media(max-width:300px){
+    body{
+        width: 100vw;
+    }
+}
