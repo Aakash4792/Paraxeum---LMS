@@ -32,7 +32,7 @@ const taskRouter = require("./routes/taskRoutes");
 //   .catch((err) => console.error(err));
 
 const dbURI =
-  "mongodb+srv://aakashsivakumar:25340210Mongodb!@cluster0.nlayw.mongodb.net/lms-final-project?retryWrites=true&w=majority";
+  "mongodb+srv://aakashsivakumar:zX9qmhvjCk0PI1xT@cluster0.nlayw.mongodb.net/lms-final-project?retryWrites=true&w=majority";
 mongoose
   .connect(dbURI)
   .then((result) =>
